@@ -10,6 +10,7 @@ Documentation on the API can be found [here](https://www.marinetraffic.com/en/ai
 * Waypoints with informational tooltips.
 * A form of waypoint clustering.
 * Animation controls.
+* To use Javascript (Any JS Framework or Library)
 
 **Share your work:**
 * Stage your solution on a demo page or
