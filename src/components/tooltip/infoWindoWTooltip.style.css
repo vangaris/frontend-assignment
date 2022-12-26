@@ -1,0 +1,24 @@
+.ship-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px
+}
+
+.ship-list-item {
+  display: flex;
+  justify-content: space-evenly;
+  width: 150px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.ship-label {
+  flex: 1;
+  font-weight: bold;
+}
+
+.ship-value {
+  flex: 1;
+  font-style: italic;
+}

@@ -1,0 +1,12 @@
+.map-container {
+  width: 90%;
+  height: 100vh;
+  position: relative;
+  overflow: inherit;
+}
+
+.infoIcon {
+   width: 20px;
+    height: 20px;
+}
+
