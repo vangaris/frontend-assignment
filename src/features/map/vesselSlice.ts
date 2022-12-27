@@ -7,9 +7,10 @@ export type PositionType = {
     lng: number;
 }
 
-type InitialState = {
+type InitialStateTypes = {
   loading: boolean
   vessel: VesselTrackType[]
+  clusterer: VesselTrackType[]
   path: PositionType[]
   error: string
   selectedMarker:PositionType
@@ -17,29 +18,42 @@ type InitialState = {
   lastPosition: PositionType
   center: PositionType
   zoom: number
+  modal: boolean
 }
 
 const initialPositionState: PositionType = {
     lat: 0,
     lng: 0
 }
-const initialState: InitialState = {
+const initialState: InitialStateTypes = {
   loading: false,
   vessel: [],
+  clusterer: [],
   path: [],
   error: '',
   selectedMarker: initialPositionState,
   startPosition: initialPositionState,
   lastPosition: initialPositionState,
   center: initialPositionState,
-  zoom: 7
+  zoom: 7,
+  modal: false,
+}
+
+type ParamTypes = {
+  period?: string
+  days?: number,
+  mmsi?: number,
+  protocol?: string
 }
 
 // Generates pending, fulfilled and rejected action types
-export const fetchVessel = createAsyncThunk('vessel/fetchVessel', async () => {
-  const response = await getVessel({})
-  return response.data
-  
+export const fetchVessel = createAsyncThunk('vessel/fetchVessel', async ( { period = 'hourly', days = 40, mmsi=241486000, protocol= 'jsono'}:ParamTypes) => {
+  try {
+  const response = await getVessel({period, days, mmsi, protocol})
+  return response?.data
+  } catch (err) { 
+      throw err;
+  }
 })
 
 const vesselSlice = createSlice({
@@ -61,6 +75,12 @@ const vesselSlice = createSlice({
      initSelectedMarker: (state) => {
       state.selectedMarker = { lat: 0, lng: 0 }
     },
+     setClustererByDay: (state, action: PayloadAction<VesselTrackType[]>) => {
+      state.clusterer = action.payload
+    },
+      setModal: (state, action: PayloadAction<boolean>) => {
+      state.modal = action.payload
+    },
   },
   extraReducers: builder => {
     builder.addCase(fetchVessel.pending, state => {
@@ -70,11 +90,12 @@ const vesselSlice = createSlice({
       fetchVessel.fulfilled,
       (state, action: PayloadAction<VesselTrackType[]>) => {
         state.loading = false
-        state.vessel = action.payload
-        state.path = action.payload.map(track =>({lat:Number(track.LAT), lng: Number(track.LON)}))
-        state.center = {lat: Number(action.payload[0]?.LAT), lng: Number(action.payload[0]?.LON)}
-        state.startPosition = {lat: Number(action.payload[0]?.LAT), lng: Number(action.payload[0]?.LON)}
-        state.lastPosition = {lat: Number(action.payload[action.payload.length -1]?.LAT), lng: Number(action.payload[action.payload.length -1]?.LON)}
+        state.vessel = action.payload 
+        state.path = action?.payload.length > 0  ? action?.payload?.map(track => ({ lat: Number(track.LAT), lng: Number(track.LON) })) : []
+        state.center =  action?.payload.length > 0  ? {lat: Number(action.payload[0]?.LAT), lng: Number(action.payload[0]?.LON)} : initialPositionState
+        state.startPosition =  action?.payload.length > 0  ?  {lat: Number(action?.payload[0]?.LAT), lng: Number(action?.payload[0]?.LON)} : initialPositionState
+        state.lastPosition = action?.payload.length > 0 ? {lat: Number(action?.payload[action?.payload?.length -1]?.LAT), lng: Number(action?.payload[action?.payload?.length -1]?.LON)} : initialPositionState
+        state.modal = action?.payload.length === 0 ? true : false
         state.error = ''
       }
     )
@@ -87,4 +108,4 @@ const vesselSlice = createSlice({
 })
 
 export default vesselSlice.reducer
-export const { setZoom, setCenter, selectMarker, initSelectedMarker } = vesselSlice.actions
+export const { setZoom, setCenter, selectMarker, initSelectedMarker, setClustererByDay, setModal } = vesselSlice.actions

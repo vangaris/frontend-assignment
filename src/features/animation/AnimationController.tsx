@@ -6,6 +6,9 @@ import { setAnimationPlayer } from "./animationSlice";
 import TrackingSlider from "../../components/slider/TrackingSlider";
 import TrackingInfo from "../../components/slider/TrackingInfo";
 import { SliderWrapper } from "../../components/slider/SliderWrapper";
+import FormVessel from "../../components/form/FormVessel";
+import ErrorBoundary from "../../components/errorBoundary/ErrorBoundary";
+import { setModal } from "../map/vesselSlice";
 
 const AnimationController = () => {
   const dispatch = useAppDispatch();
@@ -33,10 +36,18 @@ const AnimationController = () => {
   }, [animationControllerStatus, currentStep, dispatch]);
 
   return (
-    <SliderWrapper>
-      <TrackingInfo />
-      <TrackingSlider />
-    </SliderWrapper>
+    <ErrorBoundary
+      fallback={<div>An error occurred. Please try again later.</div>}
+      onError={(error, errorInfo) => {
+        dispatch(setModal(true));
+      }}
+    >
+      <SliderWrapper>
+        <TrackingInfo />
+        <TrackingSlider />
+        <FormVessel />
+      </SliderWrapper>
+    </ErrorBoundary>
   );
 };
 

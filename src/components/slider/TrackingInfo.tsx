@@ -7,14 +7,32 @@ const TrackingInfo = () => {
   const currentStep = useAppSelector((state) => state.animation.currentStep);
 
   return (
-    <Box>
-      <Typography align="center" variant="h6">
-        Tracking
-      </Typography>
-      <Typography align="center">
-        Time: {formattedDate(vesselInfo[currentStep]?.TIMESTAMP)}
-      </Typography>
-      <Typography align="center">Speed: {vesselInfo[currentStep]?.SPEED}</Typography>
+    <Box
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        flexDirection: "column",
+        marginTop: 5,
+      }}
+    >
+      <Box>
+        <Typography variant="h6" align="center">
+          Tracking Ship ID: {vesselInfo[currentStep]?.SHIP_ID}
+        </Typography>
+      </Box>
+      <Box
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-around",
+          marginTop: 10,
+        }}
+      >
+        <Typography>Time: {formattedDate(vesselInfo[currentStep]?.TIMESTAMP)}</Typography>
+        <Typography>Speed:{vesselInfo[currentStep]?.SPEED} </Typography>
+        <Typography>latitude: {vesselInfo[currentStep]?.LAT} </Typography>
+        <Typography>longitude: {vesselInfo[currentStep]?.LON}</Typography>
+      </Box>
     </Box>
   );
 };

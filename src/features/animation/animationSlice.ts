@@ -4,7 +4,8 @@ type StatusType = 'initial' | 'play' | 'pause' | 'repeat'
 
 type InitialState = {
   status: StatusType
-    currentStep: number
+  currentStep: number,
+
 }
 
 const initialState: InitialState = {
@@ -26,6 +27,7 @@ const animationSlice = createSlice({
       initCurrentStep: (state) => {
       state.currentStep = 0
     },
+
   },
 
 })

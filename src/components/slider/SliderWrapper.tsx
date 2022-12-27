@@ -7,24 +7,26 @@ type PropsTypes = {
 
 export const SliderWrapper = ({ children }: PropsTypes) => {
   return (
-    <Box
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        marginTop: "11px",
-      }}
-    >
-      <Paper
+    <>
+      <Box
         style={{
-          height: 150,
-          width: "65%",
-          backgroundColor: "white",
-          opacity: 0.9,
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "11px",
         }}
-        elevation={24}
       >
-        {children}
-      </Paper>
-    </Box>
+        <Paper
+          style={{
+            height: 320,
+            width: "65%",
+            backgroundColor: "white",
+            opacity: 0.9,
+          }}
+          elevation={24}
+        >
+          {children}
+        </Paper>
+      </Box>
+    </>
   );
 };

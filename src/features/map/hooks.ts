@@ -10,7 +10,7 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 const useVessel = () => {
     const vesselInfo = useAppSelector((state) => state.vessel.vessel);
     const path = useAppSelector((state) => state.vessel.path);
-    const center = useAppSelector((state) => state.vessel.center);
+    const center = useAppSelector((state) => state.vessel.center) || { lat: 0, lng: 0 };
     const currentZoom = useAppSelector((state) => state.vessel.zoom);
     const currentStep = useAppSelector((state) => state.animation.currentStep);
     const selectedMarker = useAppSelector((state) => state.vessel.selectedMarker);
@@ -19,7 +19,7 @@ const useVessel = () => {
 
     
   useEffect(() => {
-    dispatch(fetchVessel());
+    dispatch(fetchVessel({}));
   }, [dispatch]);
     
     
