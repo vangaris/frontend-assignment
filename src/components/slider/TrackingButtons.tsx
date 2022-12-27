@@ -13,7 +13,6 @@ const TrackingButtons = () => {
   const isLastLocation = currentStep === LastLocation;
 
   const handlePauseClick = () => {
-    console.log(animationControllerStatus);
     if (animationControllerStatus === "initial" || animationControllerStatus === "pause") {
       return dispatch(setAnimationPlayer("play"));
     }
