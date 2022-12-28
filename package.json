@@ -16,7 +16,6 @@
     "@react-google-maps/api": "^2.17.1",
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.10",
@@ -42,7 +41,7 @@
   "scripts": {
     "start": "env-cmd -f .env.development.local react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject",
     "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'"
   },
@@ -65,6 +64,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^13.4.0",
     "@types/styled-components": "^5.1.26",
     "prettier": "^2.8.1"
   }
