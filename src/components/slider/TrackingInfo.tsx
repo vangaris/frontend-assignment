@@ -1,10 +1,18 @@
 import { Box, Typography } from "@material-ui/core";
 import { formattedDate } from "../../features/map/utils";
-import { useAppSelector } from "../../features/map/hooks";
+import { useAppDispatch, useAppSelector } from "../../features/map/hooks";
+import CustomCheckbox from "../form/checkbox/CheckBox";
+import { setShowClusterer } from "../../features/animation/animationSlice";
 
 const TrackingInfo = () => {
+  const dispatch = useAppDispatch();
   const vesselInfo = useAppSelector((state) => state.vessel.vessel);
   const currentStep = useAppSelector((state) => state.animation.currentStep);
+  const showClusterer = useAppSelector((state) => state.animation.showClusterer);
+
+  const handleChange = () => {
+    dispatch(setShowClusterer(!showClusterer));
+  };
 
   return (
     <Box
@@ -28,6 +36,7 @@ const TrackingInfo = () => {
           marginTop: 10,
         }}
       >
+        <CustomCheckbox label="Show Clusterer" handleChange={handleChange} />
         <Typography>Time: {formattedDate(vesselInfo[currentStep]?.TIMESTAMP)}</Typography>
         <Typography>Speed:{vesselInfo[currentStep]?.SPEED} </Typography>
         <Typography>latitude: {vesselInfo[currentStep]?.LAT} </Typography>

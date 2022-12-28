@@ -8,6 +8,7 @@ export const useInfoWindow = () => {
   const animationStatus = useAppSelector((state) => state.animation.status);
   const currentStep = useAppSelector((state) => state.animation.currentStep);
   const currentZoom = useAppSelector((state) => state.vessel.zoom);
+  const showClusterer = useAppSelector((state) => state.animation.showClusterer);
 
   const handleOnClick = (selectedPosition: PositionType) => {
     dispatch(selectMarker(selectedPosition));
@@ -15,13 +16,10 @@ export const useInfoWindow = () => {
     if (currentZoom >= 10) dispatch(setZoom(10));
   };
 
-  const isClusterVisible =
-    animationStatus === "initial" || (currentStep === 0 && animationStatus === "pause");
-
   const animatedPositions = {
     lat: Number(vessel[currentStep]?.LAT),
     lng: Number(vessel[currentStep]?.LON),
   };
 
-  return { vessel, handleOnClick, isClusterVisible, animationStatus, animatedPositions };
+  return { vessel, handleOnClick, showClusterer, animationStatus, animatedPositions };
 };

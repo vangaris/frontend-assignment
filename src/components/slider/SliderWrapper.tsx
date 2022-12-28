@@ -1,5 +1,5 @@
 import { Box, Paper } from "@material-ui/core";
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 
 type PropsTypes = {
   children: ReactNode | ReactNode[];
@@ -14,13 +14,14 @@ export const SliderWrapper = ({ children }: PropsTypes) => {
           display: "flex",
           justifyContent: "center",
           marginTop: "11px",
-          top: "68vh",
+          top: "65vh",
           width: "100%",
+          minWidth: "1200px",
         }}
       >
         <Paper
           style={{
-            height: 320,
+            height: "300px",
             width: "65%",
             backgroundColor: "white",
             opacity: 0.9,

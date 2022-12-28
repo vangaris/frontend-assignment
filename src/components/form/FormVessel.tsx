@@ -16,7 +16,7 @@ interface FormValuesType {
 const FormVessel = () => {
   const dispatch = useAppDispatch();
   return (
-    <Box style={{ marginTop: 20 }}>
+    <Box style={{ marginTop: "20px" }}>
       <Divider />
       <Typography variant="h6" align="center">
         Search vessel API
@@ -32,7 +32,12 @@ const FormVessel = () => {
         {({ isSubmitting, values, touched, errors, isValid, setFieldValue }) => (
           <Form>
             <Box
-              style={{ display: "flex", justifyContent: "flex-end", gap: "20px", marginRight: 20 }}
+              style={{
+                display: "flex",
+                justifyContent: "space-evenly",
+                gap: "20px",
+                marginRight: "20px",
+              }}
             >
               <Field
                 name="mmsi"
@@ -76,21 +81,12 @@ const FormVessel = () => {
                   </MenuItem>
                 ))}
               </Select>
-            </Box>
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-                gap: "20px",
-                marginRight: 20,
-                marginTop: 20,
-              }}
-            >
               <Button
                 type="submit"
                 variant="contained"
                 color="primary"
                 disabled={!isValid || isSubmitting}
+                size="small"
               >
                 Search
               </Button>

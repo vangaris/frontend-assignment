@@ -18,12 +18,6 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-export interface DialogTitleProps {
-  id: string;
-  children?: React.ReactNode;
-  onClose: () => void;
-}
-
 const Modal = () => {
   const dispatch = useAppDispatch();
   const modal = useAppSelector((state) => state.vessel.modal);

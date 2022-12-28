@@ -3,11 +3,11 @@ import InfoWindoWTooltip from "../tooltip/InfoWindoWTooltip";
 import { useInfoWindow } from "../tooltip/hooks";
 
 export const Clusterer = () => {
-  const { vessel, handleOnClick, isClusterVisible } = useInfoWindow();
+  const { vessel, handleOnClick, showClusterer } = useInfoWindow();
 
   return (
     <>
-      {isClusterVisible && (
+      {showClusterer && (
         <MarkerClusterer>
           {(clusterer) => (
             <>

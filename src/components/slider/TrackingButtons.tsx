@@ -1,5 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../../features/map/hooks";
-import { setAnimationPlayer, setCurrentStep } from "../../features/animation/animationSlice";
+import {
+  setAnimationPlayer,
+  setCurrentStep,
+  setShowClusterer,
+} from "../../features/animation/animationSlice";
 import { Box, IconButton } from "@material-ui/core";
 import { Pause, PlayArrow, Replay } from "@mui/icons-material";
 
@@ -12,26 +16,26 @@ const TrackingButtons = () => {
   const LastLocation = vesselInfo.length - 1;
   const isLastLocation = currentStep === LastLocation;
 
-  const handlePauseClick = () => {
+  const handlePause = () => {
     if (animationControllerStatus === "initial" || animationControllerStatus === "pause") {
+      dispatch(setShowClusterer(false));
       return dispatch(setAnimationPlayer("play"));
     }
-
     dispatch(setAnimationPlayer("pause"));
   };
 
-  const handleReplayClick = () => {
+  const handleReplay = () => {
     dispatch(setCurrentStep(0));
     dispatch(setAnimationPlayer("play"));
   };
   return (
     <Box>
       {isLastLocation ? (
-        <IconButton onClick={handleReplayClick} color="primary">
+        <IconButton onClick={handleReplay} color="primary">
           <Replay fontSize="inherit" />
         </IconButton>
       ) : (
-        <IconButton onClick={handlePauseClick} color="primary">
+        <IconButton onClick={handlePause} color="primary">
           {animationControllerStatus === "initial" || animationControllerStatus === "pause" ? (
             <PlayArrow fontSize="inherit" />
           ) : (

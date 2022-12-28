@@ -2,8 +2,9 @@ import React, { useMemo } from "react";
 import { MarkerF } from "@react-google-maps/api";
 import InfoWindoWTooltip from "../tooltip/InfoWindoWTooltip";
 
-import { ship } from "../../features/map/constants/map";
 import { useInfoWindow } from "../tooltip/hooks";
+
+const ship = "https://www.svgrepo.com/show/433795/steamship-sf.svg";
 
 const Marker = () => {
   const { handleOnClick, animatedPositions } = useInfoWindow();

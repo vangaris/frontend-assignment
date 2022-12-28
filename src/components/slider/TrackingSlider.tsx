@@ -1,7 +1,11 @@
 import { Box, Button, Divider, Slider, Stack } from "@mui/material";
 import { WhereToVote } from "@mui/icons-material";
 import { useAppDispatch, useAppSelector } from "../../features/map/hooks";
-import { setAnimationPlayer, setCurrentStep } from "../../features/animation/animationSlice";
+import {
+  setAnimationPlayer,
+  setCurrentStep,
+  setShowClusterer,
+} from "../../features/animation/animationSlice";
 import TrackingButtons from "./TrackingButtons";
 
 const TrackingSlider = () => {
@@ -11,9 +15,17 @@ const TrackingSlider = () => {
 
   const LastLocation = vesselInfo.length - 1;
 
-  const handleChange = (_event: any, value: any) => {
+  const handleCheckBoxChange = (_event: any, value: any) => {
     dispatch(setCurrentStep(value));
   };
+
+  const handleReset = () => {
+    dispatch(setCurrentStep(0));
+    dispatch(setAnimationPlayer("initial"));
+    dispatch(setShowClusterer(true));
+  };
+
+  const handleEnd = () => dispatch(setCurrentStep(LastLocation));
 
   return (
     <Stack
@@ -25,24 +37,20 @@ const TrackingSlider = () => {
       <TrackingButtons />
       <Box style={{ width: "100%" }} display="flex" flexDirection="column" height="40px">
         <Box display="flex" alignItems="center" padding="0 5px 0 5px">
-          <Box marginRight={2} display="flex" flexDirection="column">
-            <Button
-              onClick={() => {
-                dispatch(setCurrentStep(0));
-                dispatch(setAnimationPlayer("initial"));
-              }}
-              variant="outlined"
-            >
+          <Box marginRight="2px" display="flex" flexDirection="column">
+            <Button onClick={handleReset} variant="outlined">
               reset
             </Button>
           </Box>
-          <Slider value={currentStep} onChange={handleChange} marks min={0} max={LastLocation} />
+          <Slider
+            value={currentStep}
+            onChange={handleCheckBoxChange}
+            marks
+            min={0}
+            max={LastLocation}
+          />
           <Box marginLeft={2}>
-            <Button
-              onClick={() => dispatch(setCurrentStep(LastLocation))}
-              variant="outlined"
-              startIcon={<WhereToVote />}
-            >
+            <Button onClick={handleEnd} variant="outlined" startIcon={<WhereToVote />}>
               end
             </Button>
           </Box>
