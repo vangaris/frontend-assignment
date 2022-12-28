@@ -1,4 +1,4 @@
-import { ship, dot, position } from "../../constants/map";  
+import { ship, dot, position } from "./constants/map";  
 import { format } from "date-fns";
 const formatString = "hh:mm aa, MMM d, yyyy"
   export const setIcon = (length: Number, index: Number) => {
@@ -12,9 +12,5 @@ const formatString = "hh:mm aa, MMM d, yyyy"
 
     return dot;
   };
-
-  // export const isTooltipVisible = (selectedPosition: PositionType, trackedShip: VesselTrackType) =>
-  //     selectedPosition?.lat === trackedShip?.LAT && selectedPosition?.lng === trackedShip?.LON;
-    
 
 export const formattedDate = (date: string) => date && format(new Date(date), formatString)

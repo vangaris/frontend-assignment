@@ -4,7 +4,7 @@ import Loader from "../../components/loader/Loader";
 import Marker from "../../components/marker/Marker";
 import useVessel from "./hooks";
 import AnimationController from "../animation/AnimationController";
-import { styleOptions } from "./styles";
+import { styleOptions } from "./styles/styles";
 import { Clusterer } from "../../components/clusterer/Clusterer";
 import Modal from "../../components/modal/Modal";
 

@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { options } from "../../constants/map";
+import { options } from "./constants";
 
 
 export const formValidationSchema = Yup.object().shape({

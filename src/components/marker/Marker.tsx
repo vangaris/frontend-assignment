@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { MarkerF } from "@react-google-maps/api";
 import InfoWindoWTooltip from "../tooltip/InfoWindoWTooltip";
 
-import { ship } from "../../constants/map";
+import { ship } from "../../features/map/constants/map";
 import { useInfoWindow } from "../tooltip/hooks";
 
 const Marker = () => {

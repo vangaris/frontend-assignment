@@ -5,7 +5,7 @@ import { ChangeEvent } from "react";
 import { useAppDispatch } from "../../features/map/hooks";
 import { fetchVessel } from "../../features/map/vesselSlice";
 import { formValidationSchema } from "./validation";
-import { options } from "../../constants/map";
+import { options } from "./constants";
 
 interface FormValuesType {
   mmsi: number;
