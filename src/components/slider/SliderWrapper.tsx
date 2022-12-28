@@ -10,9 +10,12 @@ export const SliderWrapper = ({ children }: PropsTypes) => {
     <>
       <Box
         style={{
+          position: "absolute",
           display: "flex",
           justifyContent: "center",
           marginTop: "11px",
+          top: "68vh",
+          width: "100%",
         }}
       >
         <Paper

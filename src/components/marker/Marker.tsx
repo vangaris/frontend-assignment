@@ -22,7 +22,7 @@ const Marker = () => {
         onClick={() => handleOnClick(animatedPositions)}
         position={animatedPositions}
       >
-        <InfoWindoWTooltip />
+        <InfoWindoWTooltip position={animatedPositions} />
       </MarkerF>
     </>
   );
