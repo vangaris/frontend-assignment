@@ -40,8 +40,8 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "env-cmd -f .env react-scripts start",
-    "build": "react-scripts build",
+    "start": "env-cmd -f .env.development.local react-scripts start",
+    "build": "env-cmd -f .env.production.local react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx}'"
