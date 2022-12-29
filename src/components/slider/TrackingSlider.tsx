@@ -37,7 +37,7 @@ const TrackingSlider = () => {
       <TrackingButtons />
       <Box style={{ width: "100%" }} display="flex" flexDirection="column" height="40px">
         <Box display="flex" alignItems="center" padding="0 5px 0 5px">
-          <Box marginRight="2px" display="flex" flexDirection="column">
+          <Box marginRight="25px" display="flex" flexDirection="column">
             <Button onClick={handleReset} variant="outlined">
               reset
             </Button>
@@ -49,7 +49,7 @@ const TrackingSlider = () => {
             min={0}
             max={LastLocation}
           />
-          <Box marginLeft={2}>
+          <Box marginLeft="20px">
             <Button onClick={handleEnd} variant="outlined" startIcon={<WhereToVote />}>
               end
             </Button>

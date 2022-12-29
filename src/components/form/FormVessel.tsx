@@ -2,10 +2,11 @@ import { Formik, Form, Field } from "formik";
 import { Box, Divider, MenuItem, Select, TextField, Typography } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { ChangeEvent } from "react";
-import { useAppDispatch } from "../../features/map/hooks";
+import { useAppDispatch, useAppSelector } from "../../features/map/hooks";
 import { fetchVessel } from "../../features/map/vesselSlice";
 import { formValidationSchema } from "./validation";
 import { options } from "./constants";
+import { setAnimationPlayer, setCurrentStep } from "../../features/animation/animationSlice";
 
 interface FormValuesType {
   mmsi: number;
@@ -14,6 +15,7 @@ interface FormValuesType {
 }
 
 const FormVessel = () => {
+  const animationsStatus = useAppSelector((state) => state.animation.status);
   const dispatch = useAppDispatch();
   return (
     <Box style={{ marginTop: "20px" }}>
@@ -22,9 +24,11 @@ const FormVessel = () => {
         Search vessel API
       </Typography>
       <Formik
-        initialValues={{ mmsi: 241486000, days: 5, period: options[0].value }}
+        initialValues={{ mmsi: 241486000, days: 10, period: options[0].value }}
         validationSchema={formValidationSchema}
-        onSubmit={(values: FormValuesType, { setSubmitting }) => {
+        onSubmit={async (values: FormValuesType, { setSubmitting }) => {
+          dispatch(setAnimationPlayer("initial"));
+          dispatch(setCurrentStep(0));
           dispatch(fetchVessel(values));
           setSubmitting(false);
         }}
@@ -85,7 +89,7 @@ const FormVessel = () => {
                 type="submit"
                 variant="contained"
                 color="primary"
-                disabled={!isValid || isSubmitting}
+                disabled={!isValid || isSubmitting || animationsStatus === "play"}
                 size="small"
               >
                 Search

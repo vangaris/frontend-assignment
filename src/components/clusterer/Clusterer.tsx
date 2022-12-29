@@ -4,7 +4,7 @@ import { useInfoWindow } from "../tooltip/hooks";
 import { memo } from "react";
 
 const Clusterer = () => {
-  const { vessel, handleOnClick, showClusterer } = useInfoWindow();
+  const { vessel, handleOnClick, showClusterer, selectedMarker } = useInfoWindow();
 
   return (
     <>
@@ -21,7 +21,10 @@ const Clusterer = () => {
                     handleOnClick({ lat: Number(marker?.LAT), lng: Number(marker?.LON) })
                   }
                 >
-                  <InfoWindoWTooltip marker={marker} />
+                  {selectedMarker.lat === Number(marker?.LAT) &&
+                    selectedMarker?.lng === Number(marker?.LON) && (
+                      <InfoWindoWTooltip marker={marker} />
+                    )}
                 </MarkerF>
               ))}
             </>

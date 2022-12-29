@@ -10,6 +10,7 @@ export const useInfoWindow = () => {
   const currentStep = useAppSelector((state) => state.animation.currentStep);
   const currentZoom = useAppSelector((state) => state.vessel.zoom);
   const showClusterer = useAppSelector((state) => state.animation.showClusterer);
+  const selectedMarker = useAppSelector((state) => state.vessel.selectedMarker);
 
   const currentMarker = vessel[currentStep];
 
@@ -37,5 +38,6 @@ export const useInfoWindow = () => {
     animationStatus,
     animatedPositions,
     currentMarker,
+    selectedMarker,
   };
 };

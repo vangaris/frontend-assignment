@@ -1,7 +1,7 @@
 import { InfoWindow } from "@react-google-maps/api";
 import { formattedDate } from "../../features/map/utils";
 import "./infoWindoWTooltip.style.css";
-import { useAppDispatch, useAppSelector } from "../../features/map/hooks";
+import { useAppDispatch } from "../../features/map/hooks";
 import { initSelectedMarker } from "../../features/map/vesselSlice";
 import { VesselTrackType } from "../../types/vessel";
 import { memo } from "react";
@@ -11,13 +11,10 @@ type PropsTypes = {
 
 const InfoWindoWTooltip = ({ marker }: PropsTypes) => {
   const dispatch = useAppDispatch();
-  const selectedMarker = useAppSelector((state) => state.vessel.selectedMarker);
-  const showTooltip =
-    selectedMarker.lat === Number(marker?.LAT) && selectedMarker?.lng === Number(marker?.LON);
 
   return (
     <>
-      {showTooltip && marker?.LAT && (
+      {marker?.LAT && (
         <InfoWindow
           position={{ lat: Number(marker?.LAT), lng: Number(marker?.LON) }}
           onCloseClick={() => dispatch(initSelectedMarker())}

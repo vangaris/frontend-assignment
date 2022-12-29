@@ -47,12 +47,12 @@ type ParamTypes = {
 }
 
 // Generates pending, fulfilled and rejected action types
-export const fetchVessel = createAsyncThunk('vessel/fetchVessel', async ( { period = 'hourly', days = 40, mmsi=241486000, protocol= 'jsono'}:ParamTypes) => {
+export const fetchVessel = createAsyncThunk('vessel/fetchVessel', async ( { period = 'hourly', days = 10, mmsi=241486000, protocol= 'jsono'}:ParamTypes) => {
   try {
   const response = await getVessel({period, days, mmsi, protocol})
   return response?.data
   } catch (err) { 
-      throw err;
+      throw err
   }
 })
 
