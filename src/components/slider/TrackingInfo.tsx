@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { Box, Typography } from "@material-ui/core";
 import { formattedDate } from "../../features/map/utils";
 import { useAppDispatch, useAppSelector } from "../../features/map/hooks";
@@ -10,9 +11,9 @@ const TrackingInfo = () => {
   const currentStep = useAppSelector((state) => state.animation.currentStep);
   const showClusterer = useAppSelector((state) => state.animation.showClusterer);
 
-  const handleChange = () => {
+  const handleChange = useCallback(() => {
     dispatch(setShowClusterer(!showClusterer));
-  };
+  }, [dispatch, showClusterer]);
 
   return (
     <Box

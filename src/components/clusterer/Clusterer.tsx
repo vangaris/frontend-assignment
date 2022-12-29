@@ -1,8 +1,9 @@
 import { MarkerClusterer, MarkerF } from "@react-google-maps/api";
 import InfoWindoWTooltip from "../tooltip/InfoWindoWTooltip";
 import { useInfoWindow } from "../tooltip/hooks";
+import { memo } from "react";
 
-export const Clusterer = () => {
+const Clusterer = () => {
   const { vessel, handleOnClick, showClusterer } = useInfoWindow();
 
   return (
@@ -20,9 +21,7 @@ export const Clusterer = () => {
                     handleOnClick({ lat: Number(marker?.LAT), lng: Number(marker?.LON) })
                   }
                 >
-                  <InfoWindoWTooltip
-                    position={{ lat: Number(marker?.LAT), lng: Number(marker?.LON) }}
-                  />
+                  <InfoWindoWTooltip marker={marker} />
                 </MarkerF>
               ))}
             </>
@@ -32,3 +31,5 @@ export const Clusterer = () => {
     </>
   );
 };
+
+export default memo(Clusterer);

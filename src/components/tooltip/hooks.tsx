@@ -1,3 +1,4 @@
+import { useMemo, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../features/map/hooks";
 import { setZoom, setCenter, selectMarker, PositionType } from "../../features/map/vesselSlice";
 
@@ -10,16 +11,31 @@ export const useInfoWindow = () => {
   const currentZoom = useAppSelector((state) => state.vessel.zoom);
   const showClusterer = useAppSelector((state) => state.animation.showClusterer);
 
-  const handleOnClick = (selectedPosition: PositionType) => {
-    dispatch(selectMarker(selectedPosition));
-    dispatch(setCenter(selectedPosition));
-    if (currentZoom >= 10) dispatch(setZoom(10));
-  };
+  const currentMarker = vessel[currentStep];
 
-  const animatedPositions = {
-    lat: Number(vessel[currentStep]?.LAT),
-    lng: Number(vessel[currentStep]?.LON),
-  };
+  const handleOnClick = useCallback(
+    (selectedPosition: PositionType) => {
+      dispatch(selectMarker(selectedPosition));
+      dispatch(setCenter(selectedPosition));
+      if (currentZoom >= 10) dispatch(setZoom(10));
+    },
+    [currentZoom, dispatch]
+  );
 
-  return { vessel, handleOnClick, showClusterer, animationStatus, animatedPositions };
+  const animatedPositions = useMemo(
+    () => ({
+      lat: Number(vessel[currentStep]?.LAT),
+      lng: Number(vessel[currentStep]?.LON),
+    }),
+    [currentStep, vessel]
+  );
+
+  return {
+    vessel,
+    handleOnClick,
+    showClusterer,
+    animationStatus,
+    animatedPositions,
+    currentMarker,
+  };
 };

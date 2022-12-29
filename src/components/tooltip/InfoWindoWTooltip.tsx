@@ -2,26 +2,28 @@ import { InfoWindow } from "@react-google-maps/api";
 import { formattedDate } from "../../features/map/utils";
 import "./infoWindoWTooltip.style.css";
 import { useAppDispatch, useAppSelector } from "../../features/map/hooks";
-import { PositionType, initSelectedMarker } from "../../features/map/vesselSlice";
+import { initSelectedMarker } from "../../features/map/vesselSlice";
+import { VesselTrackType } from "../../types/vessel";
+import { memo } from "react";
 type PropsTypes = {
-  position?: PositionType;
+  marker?: VesselTrackType;
 };
 
-const InfoWindoWTooltip = ({ position }: PropsTypes) => {
+const InfoWindoWTooltip = ({ marker }: PropsTypes) => {
   const dispatch = useAppDispatch();
-
-  const vesselInfo = useAppSelector((state) => state.vessel.vessel);
   const selectedMarker = useAppSelector((state) => state.vessel.selectedMarker);
-  const currentStep = useAppSelector((state) => state.animation.currentStep);
-
-  const showTooltip = selectedMarker.lat === position?.lat && selectedMarker?.lng === position?.lng;
+  const showTooltip =
+    selectedMarker.lat === Number(marker?.LAT) && selectedMarker?.lng === Number(marker?.LON);
 
   return (
     <>
-      {showTooltip && (
-        <InfoWindow position={position} onCloseClick={() => dispatch(initSelectedMarker())}>
+      {showTooltip && marker?.LAT && (
+        <InfoWindow
+          position={{ lat: Number(marker?.LAT), lng: Number(marker?.LON) }}
+          onCloseClick={() => dispatch(initSelectedMarker())}
+        >
           <ul className="ship-list">
-            {Object.entries(vesselInfo[currentStep])
+            {Object.entries(marker)
               .map(([key, value]) => ({ key, value }))
               .map((ship, idx) => (
                 <li className="ship-list-item" key={idx}>
@@ -38,4 +40,4 @@ const InfoWindoWTooltip = ({ position }: PropsTypes) => {
   );
 };
 
-export default InfoWindoWTooltip;
+export default memo(InfoWindoWTooltip);

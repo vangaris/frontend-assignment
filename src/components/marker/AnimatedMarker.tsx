@@ -1,13 +1,13 @@
-import React, { useMemo } from "react";
+import React, { memo, useMemo } from "react";
 import { MarkerF } from "@react-google-maps/api";
 import InfoWindoWTooltip from "../tooltip/InfoWindoWTooltip";
 
 import { useInfoWindow } from "../tooltip/hooks";
 
 const ship = "https://www.svgrepo.com/show/433795/steamship-sf.svg";
+const AnimatedMarker = () => {
+  const { handleOnClick, animatedPositions, currentMarker } = useInfoWindow();
 
-const Marker = () => {
-  const { handleOnClick, animatedPositions } = useInfoWindow();
   const memoizedIcon = useMemo(
     () => ({
       url: ship,
@@ -23,10 +23,10 @@ const Marker = () => {
         onClick={() => handleOnClick(animatedPositions)}
         position={animatedPositions}
       >
-        <InfoWindoWTooltip position={animatedPositions} />
+        <InfoWindoWTooltip marker={currentMarker} />
       </MarkerF>
     </>
   );
 };
 
-export default Marker;
+export default memo(AnimatedMarker);
